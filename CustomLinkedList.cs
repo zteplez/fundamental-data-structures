@@ -51,6 +51,7 @@ public class CustomLinkedList<T>
     {
         if (firstNode != null)
         {
+            Console.WriteLine("Test remove func");
             Node<T> iterator = firstNode;
             while(iterator != null){
                 if(EqualityComparer<T>.Default.Equals(iterator.value, value)){
@@ -63,10 +64,17 @@ public class CustomLinkedList<T>
                         lastNode = iterator.prevNode;
                         lastNode.nextNode = null;
                     }else{
-                        // Implement this.
+                        iterator.prevNode.nextNode = iterator.nextNode;
+                        iterator.nextNode.prevNode = iterator.prevNode;
+                        iterator = null;
                     }
+                    return;
                 }
+                iterator = iterator.nextNode;
             }
+            Console.WriteLine("Element is not in list.");
+        }else{
+            Console.WriteLine("Empty list.");
         }
     }
     public void TraverseFromFirst()
@@ -92,10 +100,10 @@ public class CustomLinkedList<T>
         if (lastNode != null)
         {
             Node<T> iterator = lastNode;
-            while (iterator.nextNode != null)
+            while (iterator.prevNode != null)
             {
                 Console.WriteLine($"Value {iterator.value}");
-                iterator = iterator.nextNode;
+                iterator = iterator.prevNode;
             }
             Console.WriteLine($"First node value {iterator.value}");
         }
