@@ -2,9 +2,9 @@ using System;
 
 namespace FundamentalDataStructures;
 
-public class CustomLinkedList<T> 
+public class CustomLinkedList<T>
 {
-    internal class Node<T>
+    public class Node<T>
     {
         public T value;
         public Node<T>? nextNode;
@@ -51,19 +51,25 @@ public class CustomLinkedList<T>
     {
         if (firstNode != null)
         {
-            Console.WriteLine("Test remove func");
             Node<T> iterator = firstNode;
-            while(iterator != null){
-                if(EqualityComparer<T>.Default.Equals(iterator.value, value)){
+            while (iterator != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(iterator.value, value))
+                {
                     Console.WriteLine("Element found.");
-                    if(iterator == firstNode){
+                    if (iterator == firstNode)
+                    {
                         firstNode = iterator.nextNode;
                         iterator.prevNode = null;
                         iterator = null;
-                    }else if(iterator == lastNode){
+                    }
+                    else if (iterator == lastNode)
+                    {
                         lastNode = iterator.prevNode;
                         lastNode.nextNode = null;
-                    }else{
+                    }
+                    else
+                    {
                         iterator.prevNode.nextNode = iterator.nextNode;
                         iterator.nextNode.prevNode = iterator.prevNode;
                         iterator = null;
@@ -73,9 +79,31 @@ public class CustomLinkedList<T>
                 iterator = iterator.nextNode;
             }
             Console.WriteLine("Element is not in list.");
-        }else{
+        }
+        else
+        {
             Console.WriteLine("Empty list.");
         }
+    }
+    public Node<T> Get(T value)
+    {
+        if (firstNode != null)
+        {
+            Node<T>? iterator = firstNode;
+            while (iterator != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(iterator.value, value))
+                {
+                    Console.WriteLine("Found element");
+                    return iterator;
+                }
+                iterator = iterator.nextNode;
+            }
+            Console.WriteLine("Empty list.");
+            return new Node<T>(default);
+        }
+        Console.WriteLine("Element is not in list.");
+        return new Node<T>(default);
     }
     public void TraverseFromFirst()
     {
