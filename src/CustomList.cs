@@ -2,14 +2,14 @@ using System;
 
 namespace FundamentalDataStructures;
 
-public class List<T>
+public class CustomList<T>
 {
     T[] array;
     int _capacity = 10;
     int _currentIndex;
     public int Count { get => _currentIndex; }
     public int Capacity { get => _capacity; }
-    public List()
+    public CustomList()
     {
         array = new T[_capacity];
         _currentIndex = 0;

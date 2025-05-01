@@ -72,7 +72,6 @@ public class CustomLinkedList<T>
                     {
                         iterator.prevNode.nextNode = iterator.nextNode;
                         iterator.nextNode.prevNode = iterator.prevNode;
-                        iterator = null;
                     }
                     return;
                 }
