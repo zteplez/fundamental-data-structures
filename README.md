@@ -3,8 +3,8 @@ I created this repository to **learn fundamental algorithms and practice them.**
 ## Todos
 - [x] List
 - [x] Linked List
-- [] Stack
-- [] Queque
+- [x] Stack
+- [x] Queque
 - [] Priority Queque
 - [] Graph
 - [] Binary Search Tree
