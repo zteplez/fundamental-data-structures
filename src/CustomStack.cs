@@ -21,7 +21,7 @@ public class CustomStack<T>
     {
         if (count == stack.Length)
         {
-            Console.WriteLine("Stack is full. Its gonna dynamically grow.");
+            Console.WriteLine("Stack is full. It's gonna dynamically grow.");
             GrowStack();
         }
 
