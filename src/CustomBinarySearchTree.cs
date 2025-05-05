@@ -43,4 +43,36 @@ class CustomBinarySearchTree
             currNode.left = newNode; // What should I do when values are equal ?
         }
     }
+    public Node Find(int targetValue){
+        if(root == null){
+            Console.WriteLine("Empty tree.");
+            return null;
+        }
+
+        Node targetNode = FindNode(targetValue, root);
+        if(targetNode == null){
+            Console.WriteLine("Cannot find target node.");
+            return null;
+        }else{
+            return targetNode;
+        }
+    }
+    private Node FindNode(int targetValue, Node currentNode){
+        if(targetValue < currentNode.value){
+            if(currentNode.left != null){
+                FindNode(targetValue, currentNode.left);
+            }else{
+                return null;
+            }
+        }else if(targetValue > currentNode.value){
+            if(currentNode.right != null){
+                FindNode(targetValue, currentNode.right);
+            }else{
+                return null;
+            }
+        }else{
+            return currentNode;
+        }
+        return null;
+    }
 }
