@@ -125,4 +125,56 @@ class CustomBinarySearchTree
             InOrderTraversal(currentNode.right);
         }
     }
+    public void DeleteNode(int value)
+    {
+        root = DeleteNodeRecursive(root, value);
+    }
+    public Node DeleteNodeRecursive(Node current, int targetValue)
+    {
+        if (current == null)
+            return null;
+
+        if (targetValue < current.value)
+        {
+            current.left = DeleteNodeRecursive(current.left, targetValue);
+        }
+        else if (targetValue > current.value)
+        {
+            current.right = DeleteNodeRecursive(current.right, targetValue);
+        }
+        else
+        {
+            if (current.left == null && current.right == null)
+            {
+                return null;
+            }
+
+            if (current.left == null)
+            {
+                return current.right;
+            }
+            else if (current.right == null)
+            {
+                return current.left;
+            }
+
+            Node successor = FindMin(current.right);
+            current.value = successor.value;
+            current.right = DeleteNodeRecursive(current.right, successor.value);
+        }
+
+        return current;
+    }
+
+    private Node FindMin(Node node)
+    {
+        while (node.left != null)
+        {
+            node = node.left;
+        }
+        return node;
+    }
+
+
+
 }
