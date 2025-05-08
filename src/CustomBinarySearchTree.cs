@@ -50,7 +50,7 @@ class CustomBinarySearchTree
         }
         else
         {
-            currNode.left = newNode; // What should I do when values are equal ?
+            currNode.left = newNode; 
         }
     }
     public Node Find(int targetValue)
@@ -78,7 +78,7 @@ class CustomBinarySearchTree
         {
             if (currentNode.left != null)
             {
-                FindNode(targetValue, currentNode.left);
+                return FindNode(targetValue, currentNode.left);
             }
             else
             {
@@ -89,18 +89,18 @@ class CustomBinarySearchTree
         {
             if (currentNode.right != null)
             {
-                FindNode(targetValue, currentNode.right);
+                return FindNode(targetValue, currentNode.right);
             }
             else
             {
                 return null;
             }
         }
-        else
+        else if(targetValue == currentNode.value)
         {
             return currentNode;
         }
-        return null;
+        else return null;
     }
     public void PrintInOrder()
     {
