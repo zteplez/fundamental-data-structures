@@ -17,11 +17,19 @@ public class CustomHashTable
 
     public CustomHashTable()
     {
-        buckets = new CustomList<Node>[10];
+        buckets = new CustomList<Node>[13];
         for (int i = 0; i < buckets.Length; i++)
         {
             buckets[i] = new CustomList<Node>();
         }
+    }
+    public int Hash(string key){
+        int hash = 0;
+        for(int i = 0; i < key.Length; i++){
+            hash += key[i];
+        }
+        Console.WriteLine("hash -> " + hash % 13);
+        return hash % 13;
     }
 
 }
