@@ -41,7 +41,7 @@ public class CustomHashTable
     {
         Node newNode = new Node(key, value);
         int index = Hash(key);
-        buckets[index].Add(newNode); 
+        buckets[index].Add(newNode);
     }
     public void PrintTable()
     {
@@ -59,5 +59,17 @@ public class CustomHashTable
             Console.WriteLine(list.Get(i).ToString());
         }
     }
-
+    public double CalculateLoadFactor()
+    {
+        double n = 0;
+        double m = 13;
+        foreach (var item in buckets)
+        {
+            n += item.Count;
+        }
+        double a = Math.Round(n / m, 2);
+        Console.WriteLine($"n is {n} and m is {m}");
+        Console.WriteLine($"Load factor {a}");
+        return a;
+    }
 }
