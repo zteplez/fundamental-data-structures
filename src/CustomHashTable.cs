@@ -75,23 +75,18 @@ public class CustomHashTable
     }
     private bool CheckKeyExists(Node target)
     {
+        int index = Hash(target.key);
 
-        for (int i = 0; i < buckets.Length; i++)
+        for (int i = 0; i < buckets[index].Count; i++)
         {
-            CustomList<Node> curr = buckets[i];
-            if (curr.Count != 0)
+            if (buckets[index].Get(i).key == target.key)
             {
-                for (int j = 0; j < curr.Count; j++)
-                {
-                    if (curr.Get(j).key == target.key)
-                    {
-                        curr.Get(j).value = target.value;
-                        Console.WriteLine($"Key exists, change value -> {target.value}");
-                        return true;
-                    }
-                }
+                buckets[index].Get(i).value = target.value;
+                Console.WriteLine($"Key exists, change value -> {target.value}");
+                return true;
             }
         }
+
         return false;
     }
     public int? Get(string targetKey)
