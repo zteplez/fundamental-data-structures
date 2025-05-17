@@ -51,7 +51,6 @@ public class CustomHashTable
         {
             Console.Write(i + 1 + "Bucket -> ");
             PrintListTable(buckets[i]);
-            Console.WriteLine("\n\n");
         }
     }
     public void PrintListTable(CustomList<Node> list)
@@ -103,11 +102,27 @@ public class CustomHashTable
         {
             if (buckets[index].Get(i).key == targetKey)
             {
-            Console.WriteLine($"Target key found: {targetKey}, Value: {buckets[index].Get(i).value}");
+                Console.WriteLine($"Target key found: {targetKey}, Value: {buckets[index].Get(i).value}");
                 return buckets[index].Get(i).value;
             }
         }
         Console.WriteLine("Key doesn't exists in bucket.");
         return null;
+    }
+    public bool Remove(string targetKey)
+    {
+        int index = Hash(targetKey);
+
+        for (int i = 0; i < buckets[index].Count; i++)
+        {
+            if (buckets[index].Get(i).key == targetKey)
+            {
+                buckets[index].RemoveAt(i);
+                Console.WriteLine("Target found and removed.");
+                return true;
+            }
+        }
+        Console.WriteLine("Key doesn't exists in bucket.");
+        return false;
     }
 }
