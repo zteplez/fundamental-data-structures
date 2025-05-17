@@ -95,4 +95,19 @@ public class CustomHashTable
         }
         return false;
     }
+    public int? Get(string targetKey)
+    {
+        int index = Hash(targetKey);
+
+        for (int i = 0; i < buckets[index].Count; i++)
+        {
+            if (buckets[index].Get(i).key == targetKey)
+            {
+            Console.WriteLine($"Target key found: {targetKey}, Value: {buckets[index].Get(i).value}");
+                return buckets[index].Get(i).value;
+            }
+        }
+        Console.WriteLine("Key doesn't exists in bucket.");
+        return null;
+    }
 }
