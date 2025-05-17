@@ -31,10 +31,9 @@ public class CustomHashTable
         int hash = 0;
         for (int i = 0; i < key.Length; i++)
         {
-            hash += key[i];
+            hash = 31 * hash + key[i];
         }
-        Console.WriteLine("hash -> " + hash % 13);
-        return hash % 13;
+        return Math.Abs(hash) % buckets.Length;
     }
     public void Put(string key, int value)
     {
