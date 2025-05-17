@@ -2,7 +2,6 @@ using FundamentalDataStructures;
 
 public class CustomHashTable
 {
-    // Example key-value pair -> "ibrahim as", 201, <string,int>
     public class Node
     {
         public string key;
@@ -40,8 +39,11 @@ public class CustomHashTable
     public void Put(string key, int value)
     {
         Node newNode = new Node(key, value);
-        int index = Hash(key);
-        buckets[index].Add(newNode);
+        if (!CheckKeyExists(newNode))
+        {
+            int index = Hash(key);
+            buckets[index].Add(newNode);
+        }
     }
     public void PrintTable()
     {
@@ -71,5 +73,26 @@ public class CustomHashTable
         Console.WriteLine($"n is {n} and m is {m}");
         Console.WriteLine($"Load factor {a}");
         return a;
+    }
+    private bool CheckKeyExists(Node target)
+    {
+
+        for (int i = 0; i < buckets.Length; i++)
+        {
+            CustomList<Node> curr = buckets[i];
+            if (curr.Count != 0)
+            {
+                for (int j = 0; j < curr.Count; j++)
+                {
+                    if (curr.Get(j).key == target.key)
+                    {
+                        curr.Get(j).value = target.value;
+                        Console.WriteLine($"Key exists, change value -> {target.value}");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
