@@ -23,66 +23,77 @@ public class CustomPriorityQueue
     }
     public void Enqueue(string value, int priority)
     {
-        for (int i = 0; i < minHeap.Length; i++)
+        if (nodeCount >= minHeap.Length)
         {
-            if (minHeap[i] == null)
-            {
-                nodeCount++;
-                minHeap[i] = new Node(value, priority);
-                BubbleUp(i);
-                Console.WriteLine("Add element.");
-                return;
-            }
+            Console.WriteLine("Queue is full, cannot add more elements.");
+            return;
         }
-        Console.WriteLine("Element couldn't add.");
+
+        minHeap[nodeCount] = new Node(value, priority);
+        BubbleUp(nodeCount);
+        nodeCount++;
+
+        Console.WriteLine($"Added element: {value} with priority {priority}");
     }
+
     public void BubbleUp(int index)
     {
         if (index == 0) return;
 
         int parentIndex = (index - 1) / 2;
-        Node parent = minHeap[parentIndex];
-        Node currentElement = minHeap[index];
 
-        if (parent.priority > currentElement.priority)
+        if (minHeap[parentIndex].priority > minHeap[index].priority)
         {
-            minHeap[parentIndex] = currentElement;
-            minHeap[index] = parent;
+            Node temp = minHeap[parentIndex];
+            minHeap[parentIndex] = minHeap[index];
+            minHeap[index] = temp;
+
             BubbleUp(parentIndex);
         }
+        
     }
     public void Dequeue()
     {
         if (IsEmpty())
         {
-            minHeap[0] = minHeap[nodeCount];
+            Console.WriteLine("Queue is empty, nothing to dequeue.");
+            return;
+        }
+
+        minHeap[0] = minHeap[nodeCount - 1];
+
+        minHeap[nodeCount - 1] = null;
+
+        nodeCount--;
+
+        if (!IsEmpty())
+        {
             BubbleDown(0);
-            nodeCount--;
         }
     }
     public void BubbleDown(int index)
     {
-        int leftIndex = 2 * index + 1;
-        int rightIndex = 2 * index + 2;
-        int smallest = index;
+        int leftChildIndex = 2 * index + 1;
+        int rightChildIndex = 2 * index + 2;
+        int smallestIndex = index;
 
-        if (leftIndex < nodeCount && minHeap[leftIndex].priority < minHeap[smallest].priority)
+        if (leftChildIndex < nodeCount && minHeap[leftChildIndex].priority < minHeap[smallestIndex].priority)
         {
-            smallest = leftIndex;
+            smallestIndex = leftChildIndex;
         }
 
-        if (rightIndex < nodeCount && minHeap[rightIndex].priority < minHeap[smallest].priority)
+        if (rightChildIndex < nodeCount && minHeap[rightChildIndex].priority < minHeap[smallestIndex].priority)
         {
-            smallest = rightIndex;
+            smallestIndex = rightChildIndex;
         }
 
-        if (smallest != index)
+        if (smallestIndex != index)
         {
             Node temp = minHeap[index];
-            minHeap[index] = minHeap[smallest];
-            minHeap[smallest] = temp;
+            minHeap[index] = minHeap[smallestIndex];
+            minHeap[smallestIndex] = temp;
 
-            BubbleDown(smallest);
+            BubbleDown(smallestIndex);
         }
     }
     public Node Peek()
@@ -103,4 +114,14 @@ public class CustomPriorityQueue
     }
     public bool IsEmpty() => nodeCount == 0;
     public int Count() => nodeCount;
+    public override string ToString()
+    {
+        string result = "";
+        for (int i = 0; i < nodeCount; i++)
+        {
+            result += $"[{minHeap[i].priority}:{minHeap[i].value}] ";
+        }
+        return result.Trim();
+    }
+
 }
