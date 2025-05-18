@@ -53,7 +53,7 @@ public class CustomPriorityQueue
     }
     public void Dequeue()
     {
-        if (minHeap[0] != null)
+        if (IsEmpty())
         {
             minHeap[0] = minHeap[nodeCount];
             BubbleDown(0);
@@ -87,7 +87,7 @@ public class CustomPriorityQueue
     }
     public Node Peek()
     {
-        if (minHeap[0] != null)
+        if (!IsEmpty())
         {
             return minHeap[0];
         }
@@ -99,6 +99,8 @@ public class CustomPriorityQueue
     }
     public void Resize()
     {
-        
+
     }
+    public bool IsEmpty() => nodeCount == 0;
+    public int Count() => nodeCount;
 }
