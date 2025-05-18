@@ -6,7 +6,7 @@ public class CustomPriorityQueue
 {
     public class Node
     {
-        string? value;
+        public string? value;
         public int priority;
         public Node(string value, int priority)
         {
@@ -15,10 +15,11 @@ public class CustomPriorityQueue
         }
     }
     public Node[] minHeap;
-
+    int nodeCount;
     public CustomPriorityQueue()
     {
         minHeap = new Node[20];
+        nodeCount = 0;
     }
     public void Enqueue(string value, int priority)
     {
@@ -26,6 +27,7 @@ public class CustomPriorityQueue
         {
             if (minHeap[i] == null)
             {
+                nodeCount++;
                 minHeap[i] = new Node(value, priority);
                 BubbleUp(i);
                 Console.WriteLine("Add element.");
@@ -49,29 +51,54 @@ public class CustomPriorityQueue
             BubbleUp(parentIndex);
         }
     }
-    public void BuildHeap()
+    public void Dequeue()
     {
-
-    }
-    public void PrintArray()
-    {
-        foreach (var element in minHeap)
+        if (minHeap[0] != null)
         {
-            Console.Write($" {element} ");
+            minHeap[0] = minHeap[nodeCount];
+            BubbleDown(0);
+            nodeCount--;
         }
     }
-    public void PrintHeap(int i)
+    public void BubbleDown(int index)
     {
-        Console.Write($"Root -> {minHeap[0]}");
-        Console.Write($"Left -> {minHeap[1]}");
-        Console.Write($"Right -> {minHeap[2]}");
+        int leftIndex = 2 * index + 1;
+        int rightIndex = 2 * index + 2;
+        int smallest = index;
 
-        int parent = (i - 1) / 2;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        if (leftIndex < nodeCount && minHeap[leftIndex].priority < minHeap[smallest].priority)
+        {
+            smallest = leftIndex;
+        }
+
+        if (rightIndex < nodeCount && minHeap[rightIndex].priority < minHeap[smallest].priority)
+        {
+            smallest = rightIndex;
+        }
+
+        if (smallest != index)
+        {
+            Node temp = minHeap[index];
+            minHeap[index] = minHeap[smallest];
+            minHeap[smallest] = temp;
+
+            BubbleDown(smallest);
+        }
+    }
+    public Node Peek()
+    {
+        if (minHeap[0] != null)
+        {
+            return minHeap[0];
+        }
+        else
+        {
+            Console.Write("Empty heap!");
+            return null;
+        }
+    }
+    public void Resize()
+    {
+        
     }
 }
-/*
-Parent: i → (i - 1) / 2
-Left child: i → 2i + 1
-Right child: i → 2i + 2*/
