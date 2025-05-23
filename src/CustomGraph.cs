@@ -32,6 +32,13 @@ public class CustomGraph
             first = v1;
             second = v2;
         }
+        public Vertex GetOtherVertex(Vertex v)
+        {
+            if (v == first) return second;
+            if (v == second) return first;
+            return null;
+        }
+
     }
     List<Vertex> vertices;
     List<Edge> edges;
@@ -57,5 +64,19 @@ public class CustomGraph
     {
         return vertices.Find(v => v.value == value);
     }
+    public void PrintGraph()
+{
+    foreach (var vertex in vertices)
+    {
+        Console.Write(vertex.value + " -> ");
+        foreach (var edge in vertex.neighbors)
+        {
+            string connectedTo = edge.GetOtherVertex(vertex).value;
+            Console.Write(connectedTo + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
 
 }
