@@ -21,7 +21,6 @@ public class CustomGraph
             }
             else Console.WriteLine("Edge already in list.");
         }
-
     }
     public class Edge
     {
@@ -53,30 +52,40 @@ public class CustomGraph
         Vertex newVertex = new Vertex(value);
         vertices.Add(newVertex);
     }
-    public void AddEdge(Vertex v1, Vertex v2)
+    private Vertex GetVertex(string value)
     {
+        return vertices.Find(v => v.value == value);
+    }
+    public void AddEdge(string from, string to)
+    {
+        Vertex v1 = GetVertex(from);
+        Vertex v2 = GetVertex(to);
+
+        if (v1 == null || v2 == null)
+        {
+            Console.WriteLine("Vertex not found.");
+            return;
+        }
+
         Edge newEdge = new Edge(v1, v2);
         v1.AddEdge(newEdge);
         v2.AddEdge(newEdge);
         edges.Add(newEdge);
     }
-    private Vertex GetVertex(string value)
-    {
-        return vertices.Find(v => v.value == value);
-    }
+
     public void PrintGraph()
-{
-    foreach (var vertex in vertices)
     {
-        Console.Write(vertex.value + " -> ");
-        foreach (var edge in vertex.neighbors)
+        foreach (var vertex in vertices)
         {
-            string connectedTo = edge.GetOtherVertex(vertex).value;
-            Console.Write(connectedTo + " ");
+            Console.Write(vertex.value + " -> ");
+            foreach (var edge in vertex.neighbors)
+            {
+                string connectedTo = edge.GetOtherVertex(vertex).value;
+                Console.Write(connectedTo + " ");
+            }
+            Console.WriteLine();
         }
-        Console.WriteLine();
     }
-}
 
 
 }
