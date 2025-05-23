@@ -6,25 +6,22 @@ public class CustomGraph
 {
     public class Vertex
     {
-        internal List<Edge> edges;
+        internal List<Edge> neighbors;
         internal string value;
-        public Vertex(List<Edge> edges, string value)
+        public Vertex(string value)
         {
-            this.edges = edges;
-            if (edges == null)
-            {
-                edges = new List<Edge>();
-            }
+            this.neighbors = new List<Edge>();
             this.value = value;
         }
         public void AddEdge(Edge edge)
         {
-            if (!edges.Contains(edge))
+            if (!neighbors.Contains(edge))
             {
-                edges.Add(edge);
+                neighbors.Add(edge);
             }
             else Console.WriteLine("Edge already in list.");
         }
+
     }
     public class Edge
     {
@@ -38,6 +35,7 @@ public class CustomGraph
     }
     List<Vertex> vertices;
     List<Edge> edges;
+
     public CustomGraph()
     {
         vertices = new List<Vertex>();
@@ -45,7 +43,7 @@ public class CustomGraph
     }
     public void AddVertex(string value)
     {
-        Vertex newVertex = new Vertex(null, value);
+        Vertex newVertex = new Vertex(value);
         vertices.Add(newVertex);
     }
     public void AddEdge(Vertex v1, Vertex v2)
@@ -55,4 +53,9 @@ public class CustomGraph
         v2.AddEdge(newEdge);
         edges.Add(newEdge);
     }
+    private Vertex GetVertex(string value)
+    {
+        return vertices.Find(v => v.value == value);
+    }
+
 }
